@@ -1,6 +1,6 @@
-fastapi
-uvicorn[standard]
-pandas
-joblib
-scikit-learn
-xgboost
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+pandas==2.3.3
+joblib==1.6.0
+scikit-learn==1.7.2
+xgboost==3.2.0
