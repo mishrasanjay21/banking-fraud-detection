@@ -1,6 +1,8 @@
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
@@ -15,6 +17,9 @@ app = FastAPI(
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+FRONTEND_ROOT = PROJECT_ROOT / "app" / "frontend"
+
+app.mount("/frontend", StaticFiles(directory=FRONTEND_ROOT), name="frontend")
 
 
 class TransactionRequest(BaseModel):
@@ -63,9 +68,7 @@ feature_names = joblib.load(
 
 @app.get("/")
 def home():
-    return {
-        "message": "Banking Fraud Detection API is running"
-    }
+    return FileResponse(FRONTEND_ROOT / "index.html")
 
 
 @app.get("/health")

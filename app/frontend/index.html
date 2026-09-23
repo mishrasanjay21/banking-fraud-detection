@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fraud Signal | Transaction Review</title>
+	<link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+	<main class="shell">
+		<header class="topbar">
+			<a class="brand" href="/" aria-label="Fraud Signal home"><span class="brand-mark">FS</span><span><strong>Fraud Signal</strong><small>Transaction intelligence</small></span></a>
+			<div class="status"><span></span> Model online <b>XGBoost</b></div>
+		</header>
+		<section class="intro">
+			<div><p class="eyebrow">LIVE RISK SCREENING</p><h1>Review a transaction<br><em>before it moves.</em></h1><p class="lede">Enter the transaction signals below to estimate whether this payment looks genuine or fraudulent.</p></div>
+			<div class="intro-note"><span>01</span><p>30 model inputs<br><b>Instant scoring</b></p></div>
+		</section>
+		<div class="workspace">
+			<form id="transaction-form" class="form-panel">
+				<div class="panel-heading"><div><p class="eyebrow">TRANSACTION</p><h2>Core details</h2></div><span class="step">01 / 02</span></div>
+				<div class="core-grid">
+					<label class="field">Transaction amount <span>USD</span><input name="Amount" type="number" min="0" step="0.01" value="150.50" required></label>
+					<label class="field">Transaction time <span>seconds</span><input name="Time" type="number" min="0" step="0.01" value="10000" required></label>
+				</div>
+				<div class="signals-heading"><div><p class="eyebrow">MODEL SIGNALS</p><h2>Latent features</h2></div><p>Values from the transaction feature pipeline</p></div>
+				<div id="feature-grid" class="feature-grid"></div>
+				<div class="form-actions"><button id="reset-button" type="reset" class="secondary">Reset values</button><button id="predict-button" type="submit" class="primary">Check transaction <span>→</span></button></div>
+			</form>
+			<aside class="result-panel" aria-live="polite"><div class="result-top"><p class="eyebrow">ASSESSMENT</p><span class="result-icon">↗</span></div>
+				<div id="empty-result" class="empty-result"><div class="scan-ring"><span></span></div><h2>Awaiting review</h2><p>Submit the transaction details to receive a model assessment.</p></div>
+				<div id="prediction-result" class="prediction-result" hidden><p class="result-label">MODEL DECISION</p><h2 id="prediction-value">GENUINE</h2><div class="probability-row"><span>Fraud probability</span><strong id="probability-value">0.00%</strong></div><div class="meter"><span id="probability-meter"></span></div><div class="result-meta"><span>Threshold <b id="threshold-value">50%</b></span><span id="result-time">Ready</span></div><div id="result-message" class="result-message"></div></div>
+				<div id="error-result" class="error-result" hidden></div>
+			</aside>
+		</div>
+		<footer><span>Fraud Signal API</span><span>Private transaction review workspace</span></footer>
+	</main>
+	<script src="/frontend/script.js"></script>
+</body>
+</html>
